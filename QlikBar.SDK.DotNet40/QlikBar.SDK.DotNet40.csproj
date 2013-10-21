@@ -91,7 +91,7 @@
       <Project>{B64DAD03-D966-4037-AB27-31A19D118333}</Project>
       <Name>Agile.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\QlikBar.Api\QlikBar.SDK.csproj">
+    <ProjectReference Include="..\QlikBar.SDK\QlikBar.SDK.csproj">
       <Project>{09C5B63B-9AC5-4D58-A337-C6FD8A319FA2}</Project>
       <Name>QlikBar.SDK</Name>
     </ProjectReference>

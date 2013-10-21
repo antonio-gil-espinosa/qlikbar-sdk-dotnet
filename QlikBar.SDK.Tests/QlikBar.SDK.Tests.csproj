@@ -68,6 +68,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\QlikBar.SDK.DotNet40\QlikBar.SDK.DotNet40.csproj">
+      <Project>{456EF8B5-00B3-47E5-8658-B22531AE0B0C}</Project>
+      <Name>QlikBar.SDK.DotNet40</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QlikBar.SDK\QlikBar.SDK.csproj">
       <Project>{09C5B63B-9AC5-4D58-A337-C6FD8A319FA2}</Project>
       <Name>QlikBar.SDK</Name>
