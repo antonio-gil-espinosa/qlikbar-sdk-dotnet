@@ -19,9 +19,14 @@ namespace QlikBar.SDK
             Password = password;
         }
 
-        public MobileResponse<CheckInResult> TableCheckIn(int idtable)
+        /// <summary>
+        /// Perform a checkin in the given table.
+        /// </summary>
+        /// <param name="idTable">The table id.</param>
+        /// <returns>MobileResponse{CheckInResult}.</returns>
+        public MobileResponse<CheckInResult> TableCheckIn(int idTable)
         {
-            Dictionary<string, string> data = new Dictionary<string, string> { { "idMesa", idtable.ToString(CultureInfo.InvariantCulture) } };
+            Dictionary<string, string> data = new Dictionary<string, string> { { "idMesa", idTable.ToString(CultureInfo.InvariantCulture) } };
             string response = HttpHelper.Post("client/checkin", Id, Password, data);
             MobileResponse<IEnumerable<CheckInResult>> tableCheckIn = JsonConvert.DeserializeObject <MobileResponse<IEnumerable<CheckInResult>>>(response);
             return new MobileResponse<CheckInResult>()

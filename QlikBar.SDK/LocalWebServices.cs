@@ -18,6 +18,10 @@ namespace QlikBar.SDK
         public int Id { get; private set; }
         public string ApiKey { get; private set; }
 
+        /// <summary>
+        /// Gets the menu from the local.
+        /// </summary>
+        /// <returns>Category[][].</returns>
         public Category [] GetMenu()
         {
             string response = HttpHelper.Get("local/" + Id + "/menu", ApiKey);
@@ -34,6 +38,13 @@ namespace QlikBar.SDK
             return menu.ToArray();
         }
 
+        /// <summary>
+        /// Sends a promotion.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="content">The content.</param>
+        /// <param name="live">if set to <c>true</c> send to current clients.</param>
+        /// <returns>Response.</returns>
         public Response SendPromotion(string title, string content, bool live)
         {
             string response = HttpHelper.Post("local/sendpromotion",
@@ -42,6 +53,13 @@ namespace QlikBar.SDK
             return JsonConvert.DeserializeObject<Response>(response);
         }
 
+        /// <summary>
+        /// Sends the promotion.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="content">The content.</param>
+        /// <param name="targets">The ids of the clients.</param>
+        /// <returns>Response.</returns>
         public Response SendPromotion(string title, string content, int[] targets)
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>
@@ -58,6 +76,13 @@ namespace QlikBar.SDK
             return JsonConvert.DeserializeObject<Response>(response);
         }
 
+        /// <summary>
+        /// Adds points to given client.
+        /// </summary>
+        /// <param name="clientId">The client id.</param>
+        /// <param name="quantity">The quantity.</param>
+        /// <param name="reason">The reason.</param>
+        /// <returns>Response{AddPointResultSystem.String}.</returns>
         public Response<AddPointResult, string> AddPoints(int clientId, int quantity, string reason)
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string> {{"quantity", quantity.ToString(CultureInfo.InvariantCulture)}, {"reason", reason}};
@@ -66,8 +91,22 @@ namespace QlikBar.SDK
             return JsonConvert.DeserializeObject<Response<AddPointResult, string>>(response);
         }
 
+        /// <summary>
+        /// Consumes points of given client.
+        /// </summary>
+        /// <param name="clientId">The client id.</param>
+        /// <param name="quantity">The quantity.</param>
+        /// <param name="reason">The reason.</param>
+        /// <returns>Response{AddPointResultSystem.String}.</returns>
         public Response<AddPointResult, string> ConsumePoints(int clientId, int quantity, string reason) { return AddPoints(clientId, quantity * -1, reason); }
 
+        /// <summary>
+        /// Adds points a client given his pase berde.
+        /// </summary>
+        /// <param name="paseBerde">The pase berde.</param>
+        /// <param name="quantity">The quantity.</param>
+        /// <param name="reason">The reason.</param>
+        /// <returns>Response{AddPointResultSystem.String}.</returns>
         [Obsolete]
         public Response<AddPointResult, string> AddPointsToPaseBerde(string paseBerde, int quantity, string reason)
         {
@@ -78,6 +117,13 @@ namespace QlikBar.SDK
             
         }
 
+        /// <summary>
+        /// Consumes points from a client given his pase berde.
+        /// </summary>
+        /// <param name="paseBerde">The pase berde.</param>
+        /// <param name="quantity">The quantity.</param>
+        /// <param name="reason">The reason.</param>
+        /// <returns>Response{AddPointResultSystem.String}.</returns>
         [Obsolete]
         public Response<AddPointResult, string> ConsumePointsToPaseBerde(string paseBerde, int quantity, string reason)
         {
@@ -88,6 +134,12 @@ namespace QlikBar.SDK
  
         }
 
+        /// <summary>
+        /// Sets the orders for the given table.
+        /// </summary>
+        /// <param name="tableId">The table id.</param>
+        /// <param name="orders">The orders.</param>
+        /// <returns>IEnumerable{SetOrdersResult}.</returns>
         public IEnumerable<SetOrdersResult> SetOrders(int tableId, IEnumerable<SetOrderDTO> orders)
         {
             Dictionary<string, string> data = new Dictionary<string, string> {{"orders", JsonConvert.SerializeObject(orders)}};
@@ -95,6 +147,11 @@ namespace QlikBar.SDK
             return JsonConvert.DeserializeObject<IEnumerable<SetOrdersResult>>(response);
         }
 
+        /// <summary>
+        /// Gets the client given his id.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>Response{Client}.</returns>
         public Response<Client> GetClient(int id)
         {
             string response = HttpHelper.Get("local/client/"+id, ApiKey);
@@ -102,6 +159,11 @@ namespace QlikBar.SDK
         }
 
 
+        /// <summary>
+        /// Gets the client by his pase berde.
+        /// </summary>
+        /// <param name="paseBerde">The pase berde.</param>
+        /// <returns>Response{Client}.</returns>
         public Response<Client> GetClientByPaseBerde(string paseBerde)
         {
 
@@ -111,12 +173,20 @@ namespace QlikBar.SDK
 
 
 
+        /// <summary>
+        /// Gets the clients of the locla.
+        /// </summary>
+        /// <returns>Response{Client[]}.</returns>
         public Response<Client[]> GetClients()
         {
             string response = HttpHelper.Get("local/clients", ApiKey);
             return JsonConvert.DeserializeObject<Response<Client[]>>(response);
         }
 
+        /// <summary>
+        /// Gets the tables of the local.
+        /// </summary>
+        /// <returns>Table[][].</returns>
         public Table[] GetTables()
         {
             string response = HttpHelper.Get("local/" + Id + "/tables", ApiKey);
@@ -148,6 +218,13 @@ namespace QlikBar.SDK
             return deserializeObject;
         }*/
 
+        /// <summary>
+        /// Creates a table.
+        /// </summary>
+        /// <param name="enabled">if set to <c>true</c> [enabled].</param>
+        /// <param name="name">The name.</param>
+        /// <param name="remoteId">The remote id.</param>
+        /// <returns>Response{CreateTableResult}.</returns>
         public Response<CreateTableResult> CreateTable(bool enabled, string name, string remoteId)
         {
             Dictionary<string, string> data = new Dictionary<string, string>
@@ -161,6 +238,13 @@ namespace QlikBar.SDK
 
         }
 
+        /// <summary>
+        /// Edits a table.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <param name="enabled">if set to <c>true</c> [enabled].</param>
+        /// <param name="name">The name.</param>
+        /// <param name="remoteId">The remote id.</param>
         public void EditTable(int id, bool enabled, string name, string remoteId)
         {
             Dictionary<string, string> data = new Dictionary<string, string>
@@ -174,10 +258,18 @@ namespace QlikBar.SDK
         }
 
 
- 
 
 
 
+
+        /// <summary>
+        /// Registers a client.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <param name="paseBerde">The pase berde.</param>
         public void RegisterClient(string email, string password, string firstName,string lastName,string paseBerde)
         {
             Dictionary<string, string> data = new Dictionary<string, string>
@@ -192,10 +284,24 @@ namespace QlikBar.SDK
 
         }
 
+        /// <summary>
+        /// Deletes a table.
+        /// </summary>
+        /// <param name="id">The id.</param>
         public void DeleteTable(int id) { HttpHelper.Post("table/" + id + "/delete", ApiKey); }
 
+        /// <summary>
+        /// Opens a table.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>Response.</returns>
         public Response OpenTable(int id) { return JsonConvert.DeserializeObject<Response>(HttpHelper.Post("table/" + id + "/open", ApiKey)); }
 
+        /// <summary>
+        /// Closes a table.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>Response.</returns>
         public Response CloseTable(int id) { return JsonConvert.DeserializeObject<Response>(HttpHelper.Post("table/" + id + "/close", ApiKey)); }
 
         public Response<CreateArticleResult> CreateArticle(string name,
@@ -242,6 +348,19 @@ namespace QlikBar.SDK
             return JsonConvert.DeserializeObject<Response<CreateArticleResult>>(HttpHelper.Post("article/create", ApiKey, data));
         }
 
+        /// <summary>
+        /// Creates an article.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="description">The description.</param>
+        /// <param name="image">The image.</param>
+        /// <param name="price">The price.</param>
+        /// <param name="categoryId">The category id.</param>
+        /// <param name="visibility">The visibility.</param>
+        /// <param name="remoteId">The remote id.</param>
+        /// <param name="discount">The discount.</param>
+        /// <param name="allowHomeOrders">if set to <c>true</c> [allow home orders].</param>
+        /// <returns>Response{CreateArticleResult}.</returns>
         public Response<CreateArticleResult> CreateArticle(string name,
                                                  string description,
                                                  string image,
@@ -270,6 +389,18 @@ namespace QlikBar.SDK
             return JsonConvert.DeserializeObject<Response<CreateArticleResult>>(HttpHelper.Post("article/create", ApiKey, data));
         }
 
+        /// <summary>
+        /// Edits an article.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="description">The description.</param>
+        /// <param name="image">The image.</param>
+        /// <param name="price">The price.</param>
+        /// <param name="visibility">The visibility.</param>
+        /// <param name="remoteId">The remote id.</param>
+        /// <param name="discount">The discount.</param>
+        /// <param name="allowHomeOrders">if set to <c>true</c> [allow home orders].</param>
         public void EditArticle(int id,
                                 string name,
                                 string description,
@@ -297,6 +428,10 @@ namespace QlikBar.SDK
             HttpHelper.Post("article/" + id + "/edit", ApiKey, data);
         }
 
+        /// <summary>
+        /// Deletes an article.
+        /// </summary>
+        /// <param name="id">The id.</param>
         public void DeleteArticle(int id) { HttpHelper.Post("article/" + id + "/delete", ApiKey); }
 
         public Response<CreateCategoryResult> CreateCategory(string name,
@@ -321,6 +456,15 @@ namespace QlikBar.SDK
             return JsonConvert.DeserializeObject<Response<CreateCategoryResult>>(HttpHelper.Post("category/create", ApiKey, data));
         }
 
+        /// <summary>
+        /// Edits a category.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="description">The description.</param>
+        /// <param name="image">The image.</param>
+        /// <param name="visible">if set to <c>true</c> [visible].</param>
+        /// <param name="remoteId">The remote id.</param>
         public void EditCategory(int id,
                                  string name,
             string description,
@@ -342,6 +486,10 @@ namespace QlikBar.SDK
             HttpHelper.Post("category/" + id + "/edit", ApiKey, data);
         }
 
+        /// <summary>
+        /// Deletes a category.
+        /// </summary>
+        /// <param name="id">The id.</param>
         public void DeleteCategory(int id) { HttpHelper.Post("category/" + id + "/delete", ApiKey); }
     }
 }
