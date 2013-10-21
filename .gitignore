@@ -1,0 +1,15 @@
+/TraceAndTestImpact.testsettings
+/packages
+/Properties
+/TestResults
+/Local.testsettings
+/Program.cs
+/QlikBar.SDK.csproj
+/QlikBar.SDK.suo
+/QlikBar.SDK.vsmdi
+/QlikBar.SDK/bin
+/QlikBar.SDK.DotNet40/bin
+/QlikBar.SDK.Tests/bin
+/QlikBar.SDK.Tests/obj
+/QlikBar.SDK/obj
+/QlikBar.SDK.DotNet40/obj

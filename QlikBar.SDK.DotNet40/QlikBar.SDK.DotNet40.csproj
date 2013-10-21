@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{456EF8B5-00B3-47E5-8658-B22531AE0B0C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QlikBar.SDK.DotNet40</RootNamespace>
+    <AssemblyName>QlikBar.SDK.DotNet40</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Local|AnyCPU'">
+    <OutputPath>bin\Local\</OutputPath>
+    <DefineConstants>DEBUG;LOCAL</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.2.1\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.1.1.3\lib\net40\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Domain.Model\Article.cs" />
+    <Compile Include="Domain.Model\Category.cs" />
+    <Compile Include="Domain.Model\CheckIn.cs" />
+    <Compile Include="Domain.Model\ComboList.cs" />
+    <Compile Include="Domain.Model\ComboListItem.cs" />
+    <Compile Include="Domain.Model\IEntity.cs" />
+    <Compile Include="Domain.Model\Order.cs" />
+    <Compile Include="Domain.Model\OrderPart.cs" />
+    <Compile Include="Domain.Model\Table.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Infrastructure\Repositories\ArticleRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\CategoryRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\ClientRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\TableRepository.cs" />
+    <Compile Include="RepositoryFactory.cs" />
+    <Compile Include="Services\DTOs\ArticleDTO.cs" />
+    <Compile Include="Services\DTOs\CheckInDTO.cs" />
+    <Compile Include="Services\DTOs\OrderCollectionDTO.cs" />
+    <Compile Include="Services\DTOs\OrderDTO.cs" />
+    <Compile Include="Services\DTOs\TableDTO.cs" />
+    <Compile Include="Services\Listener.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ILMerge.exe" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\agile-architecture\Agile.Core\Agile.Core.csproj">
+      <Project>{B64DAD03-D966-4037-AB27-31A19D118333}</Project>
+      <Name>Agile.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\QlikBar.Api\QlikBar.SDK.csproj">
+      <Project>{09C5B63B-9AC5-4D58-A337-C6FD8A319FA2}</Project>
+      <Name>QlikBar.SDK</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\Mappings\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>echo move $(TargetPath) $(TargetPath)_
+echo $(ProjectDir)ilmerge.exe /target:$(TargetPath)_ /out:$(TargetPath) $(TargetDir)QlikBar.SDK.dll
+echo del $(TargetPath)_</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
